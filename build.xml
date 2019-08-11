@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+	Ant build.xml ====================================================================== -->
+	<project name="deploy" default="default">
+
+	<!-- ================================= property: environment variables ================================= -->
+	<property environment="env" />
+	<property name="catalina.home" value="${env.CATALINA_HOME}" />
+	<property name="war.file" value="${basedir}/ROOT.war" />
+
+	<!-- ================================= property: deploy ================================= -->
+	<property name="appname" value="StService" />
+	<property name="webapps.dir" value="${catalina.home}/webapps" />
+	<property name="deploy.dir" value="${webapps.dir}/${appname}" />
+	<property name="deploy.webinf.dir" value="${deploy.dir}/WEB-INF" />
+	<property name="deploy.lib.dir" value="${deploy.webinf.dir}/lib" />
+	<property name="deploy.classes.dir" value="${deploy.webinf.dir}/classes" />
+
+	<!-- ================================= target: init_deploy ================================= -->
+	<target name="init_deploy">
+		<mkdir dir="${deploy.dir}" />
+		<mkdir dir="${deploy.webinf.dir}" />
+		<mkdir dir="${deploy.lib.dir}" />
+		<mkdir dir="${deploy.classes.dir}" />
+	</target>
+
+	<!-- ================================= property: StService ================================= -->
+	<property name="StService.dir" value="${basedir}/../StService" />
+	<property name="StService.webroot.dir" value="${StService.dir}/WebContent" />
+	<property name="StService.webinf.dir" value="${StService.webroot.dir}/WEB-INF" />
+	<property name="StService.lib.dir" value="${StService.webinf.dir}/lib" />
+	<property name="StService.classes.dir" value="${StService.webinf.dir}/classes" />
+
+	<!-- ================================= target: deploy_StService ================================= -->
+	<target name="deploy_StService">
+		<copy todir="${deploy.dir}">
+			<fileset dir="${StService.webroot.dir}">
+			</fileset>
+		</copy>
+	</target>
+
+	<!-- ================================= target: deploy_resource_auth ================================= -->
+	
+	<!-- ================================= target: deploy ================================= -->
+	<target name="default" depends="deploy_StService">
+	</target>
+</project>
